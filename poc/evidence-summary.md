@@ -11,4 +11,5 @@
 - `POST /levels/unlock {level:2}` → `500 Something went wrong` (reproducible); `{level:"abc"}` → `400`
 - `PUT /save` wrong userId seal → `400 SEAL`; `GET /save` no token → `Log in first`
 - Goals PUT (stats/hunt/cooks/workedToday/visits) → `200 rev37`; visits +2 saved, hunt set
-- Final observed: money drained by user browser sends to `orrddy` (`-1000/-2000/-2700/-3000`), level stuck at `2`
+- `130→11000` at level 4 → `200 rev50 netWorth:11000` (level-scaled velocity cap)
+- Final observed: user browser sends to `orrddy` drain balance; level legitimately played to `4`, tamper `130→11000` → `rev50`

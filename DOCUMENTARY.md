@@ -44,8 +44,17 @@ node -e "fetch('https://api.meetdubai.app/auth/login',{method:'POST',headers:{'c
 Key files:
 - `poc/seal.js` — `H` + HMAC + seal message format
 - `poc/save-tamper.js` — template: GET save/nonce → PUT with one changed field
+- `poc/goals-gems.js` — template: level-2 goals + daily `places2/cook1/work45` + gems `3/3` (money/level untouched)
 - `poc/evidence-summary.md` — redacted statuses/revisions (no tokens)
 - `pent.md` — original scope/rules
+
+## Goals / daily / gems how-to
+
+Seal covers only `money|level|minutes|xpTotal|savings|loan|ledgerSeq` — stats/quests/hunt/visits are unbound, so they can be set freely with a valid seal for unchanged money/level.
+- Level 2 (`I(2)`): `stats.shifts>=1`, `stats.hangouts>=1`, `stats.trainings>=1` → `3/3 complete`.
+- Daily: `U(work)=workedToday` (needs `workDay=day(minutes)`), `U(places)=distinct visits today` (not home/work), `U(cook)=cooks`. Set `workedToday=8 + workDay=day`, `cooks=1`, append 2 visits (`beach`,`mall` at `dayStart+600/700`) → `places2/cook1/work45` done. Leave `quests.claimed=[]` (progress without auto-claiming rewards).
+- Gems: `hunt={day: floor(minutes/1440), found:[3 place ids]}` → header `3/3` (`found.length/3`). Server accepted arbitrary valid ids in test.
+- Velocity: `1100→50000` blocked (`net worth grew faster`), small steps pass; higher level raises cap (`130→11000` at level 4 passed → `rev50 netWorth:11000`).
 
 ## Findings (short)
 
