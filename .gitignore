@@ -1,0 +1,11 @@
+login.json
+tmp-body.json
+tmp-headers.txt
+tmp.json
+payload.json
+node_modules/
+jsdump/
+auth-*.js
+*.out
+repo.json
+package-lock.json
